@@ -7,12 +7,14 @@ public class PlayerController : MonoBehaviour {
 	public float speed;
 	public Text countText;
 	public Text winText;
+	public static int antiAliasing;
 
 	private Rigidbody rb;
 	private int count;
 
 	void Start ()
 	{
+		QualitySettings.antiAliasing = 2;
 		rb = GetComponent<Rigidbody>();
 		count = 0;
 		SetCountText ();
@@ -47,4 +49,10 @@ public class PlayerController : MonoBehaviour {
 			winText.text = "You Win!";
 		}
 	}
+
+	public void PointerEnter(){
+		Debug.Log ("enter");
+	
+	}
+
 }
