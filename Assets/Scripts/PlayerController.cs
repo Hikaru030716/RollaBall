@@ -5,20 +5,18 @@ using System.Collections;
 public class PlayerController : MonoBehaviour {
 
 	public float speed;
-	public Text countText;
-	public Text winText;
 	public static int antiAliasing;
 
 	private Rigidbody rb;
-	private int count;
+
+	public GameObject Pickup;
+    public ModeController GamePlay;
+    Collider other;
 
 	void Start ()
 	{
 		QualitySettings.antiAliasing = 2;
-		rb = GetComponent<Rigidbody>();
-		count = 0;
-		SetCountText ();
-		winText.text = "";
+		rb = GetComponent<Rigidbody>();      
 	}
 
 	void FixedUpdate ()
@@ -26,33 +24,23 @@ public class PlayerController : MonoBehaviour {
 		float moveHorizontal = Input.GetAxis ("Horizontal");
 		float moveVertical = Input.GetAxis ("Vertical");
 
+		if (!Application.isEditor) {
+			moveHorizontal = Input.acceleration.x;
+			moveVertical = Input.acceleration.z;
+		}
+
 		Vector3 movement = new Vector3 (moveHorizontal, 0.0f, moveVertical);
 
 		rb.AddForce (movement * speed);
 	}
 
-	void OnTriggerEnter(Collider other) 
-	{
-		if (other.gameObject.CompareTag ( "Pick Up"))
-		{
-			other.gameObject.SetActive (false);
-			count = count + 1;
-			SetCountText ();
-		}
-	}
 
-	void SetCountText ()
-	{
-		countText.text = "Count: " + count.ToString ();
-		if (count >= 10)
-		{
-			winText.text = "You Win!";
-		}
-	}
 
-	public void PointerEnter(){
-		Debug.Log ("enter");
-	
-	}
 
+/*	IEnumerator PickUpSpawn(){
+		yield return new WaitForSeconds (2.0f);
+		Debug.Log ("spawn");
+		Pickup.SetActive (true);
+	}
+*/
 }
