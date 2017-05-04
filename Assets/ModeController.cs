@@ -5,14 +5,21 @@ using UnityEngine.UI;
 
 public class ModeController : MonoBehaviour {
 
-	private int count;
+    private int score;
 	public Text countText;
     public Text winText;
 
+    
+
+
     void Start()
     {
-        count = 0;
         winText.text = "";
+        SetCountText();
+    }
+
+    void Update()
+    {
     }
 
     public void ChangeVRmode(){
@@ -32,14 +39,25 @@ public class ModeController : MonoBehaviour {
 		StopCoroutine ("Change");
 	}
 
+    //void OnTriggerEnter(Collider other)
+    //{
+    //    if(hitCheck.gameObject.CompareTag("Pick Up"))
+    //    {
+    //        SetCountText();
+    //    }
+    //}
 
     void SetCountText()
     {
-        countText.text = "Count: " + count.ToString();
-        if (count >= 10)
+        Hitbox hitCheck = GetComponent<Hitbox>();
+        score = Hitbox.count;
+        Debug.Log("" + score);
+        countText.text = "Count: " + score.ToString();
+        if (score >= 10)
         {
             winText.text = "You Win!";
         }
     }
+
 
 }
