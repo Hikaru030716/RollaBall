@@ -6,28 +6,20 @@ public class Hitbox : MonoBehaviour {
 
     public static int count;
 
-    ModeController controller;
+    GameObject parent;
 
-    private void OnTriggerEnter(Collider other)
+    public void OnTriggerEnter(Collider other)
     {
         PlayerController player = other.gameObject.GetComponent<PlayerController>();
-        //ModeController controller = gameObject.GetComponent<ModeController>();
-        if (gameObject.CompareTag("Pick Up"))
+        parent = GameObject.Find("GamePlay");
+        if(player != null)
         {
             gameObject.SetActive(false);
+            parent.GetComponent<ModeController>().spawnItem = gameObject;
             count++;
-            controller.gameObject.SendMessage("SetCountText", count);
-            //Debug.Log("Count" + count);
+            parent.SendMessage("SetCountText");
+            parent.SendMessage("Spawn");
         }
     }
 
-    public IEnumerator PickUpSpawn()
-    {
-        if (gameObject.activeInHierarchy == false)
-        {
-            yield return new WaitForSeconds(2.0f);
-            Debug.Log("spawn");
-            gameObject.SetActive(true);
-        }
-    }
 }

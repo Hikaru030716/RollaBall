@@ -9,17 +9,14 @@ public class ModeController : MonoBehaviour {
 	public Text countText;
     public Text winText;
 
-    
-
+    public GameObject spawnItem;
 
     void Start()
     {
+        print(gameObject.name);
         winText.text = "";
         SetCountText();
-    }
-
-    void Update()
-    {
+  //      spawnItem = transform.gameObject.GetComponent<Hitbox>();
     }
 
     public void ChangeVRmode(){
@@ -39,14 +36,6 @@ public class ModeController : MonoBehaviour {
 		StopCoroutine ("Change");
 	}
 
-    //void OnTriggerEnter(Collider other)
-    //{
-    //    if(hitCheck.gameObject.CompareTag("Pick Up"))
-    //    {
-    //        SetCountText();
-    //    }
-    //}
-
     void SetCountText()
     {
         Hitbox hitCheck = GetComponent<Hitbox>();
@@ -57,6 +46,18 @@ public class ModeController : MonoBehaviour {
         {
             winText.text = "You Win!";
         }
+    }
+
+    void Spawn()
+    {
+        StartCoroutine(TimetoSpawn( spawnItem));
+    }
+
+    IEnumerator TimetoSpawn(GameObject item)
+    {
+        yield return new WaitForSeconds(2.0f);
+
+        item.SetActive(true);
     }
 
 

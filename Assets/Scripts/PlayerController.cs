@@ -34,13 +34,4 @@ public class PlayerController : MonoBehaviour {
 		rb.AddForce (movement * speed);
 	}
 
-
-
-
-/*	IEnumerator PickUpSpawn(){
-		yield return new WaitForSeconds (2.0f);
-		Debug.Log ("spawn");
-		Pickup.SetActive (true);
-	}
-*/
 }
