@@ -7,18 +7,25 @@ public class Hitbox : MonoBehaviour {
     public static int count;
 
     GameObject parent;
+    ModeController modeController;
+
+    private void Start()
+    {
+        parent = GameObject.Find("GamePlay");
+        modeController = parent.GetComponent<ModeController>();
+    }
 
     public void OnTriggerEnter(Collider other)
     {
         PlayerController player = other.gameObject.GetComponent<PlayerController>();
-        parent = GameObject.Find("GamePlay");
+     
         if(player != null)
         {
             gameObject.SetActive(false);
-            parent.GetComponent<ModeController>().spawnItem = gameObject;
+            modeController.spawnItem = gameObject;
             count++;
-            parent.SendMessage("SetCountText");
-            parent.SendMessage("Spawn");
+            modeController.SetCountText();
+            modeController.Spawn();
         }
     }
 

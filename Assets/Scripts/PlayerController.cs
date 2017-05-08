@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour {
 	public GameObject Pickup;
     public ModeController GamePlay;
     Collider other;
+    
 
 	void Start ()
 	{
@@ -21,17 +22,24 @@ public class PlayerController : MonoBehaviour {
 
 	void FixedUpdate ()
 	{
-		float moveHorizontal = Input.GetAxis ("Horizontal");
-		float moveVertical = Input.GetAxis ("Vertical");
-
-		if (!Application.isEditor) {
-			moveHorizontal = Input.acceleration.x;
-			moveVertical = Input.acceleration.z;
+        Vector3 vector = new Vector3();
+        if (Application.isEditor)
+        {
+            float moveHorizontal = Input.GetAxis("Horizontal");
+            float moveVertical = Input.GetAxis("Vertical");
+            Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
+            rb.AddForce(movement * speed);
+        }
+        else
+        {
+			vector.x = Input.acceleration.x;
+			vector.y = Input.acceleration.z;
+            vector.z = Input.acceleration.y;
 		}
 
-		Vector3 movement = new Vector3 (moveHorizontal, 0.0f, moveVertical);
 
-		rb.AddForce (movement * speed);
+        // Physics.gravity = 5.0f * vector.normalized;
+
 	}
 
 }

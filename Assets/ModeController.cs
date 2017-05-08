@@ -36,7 +36,7 @@ public class ModeController : MonoBehaviour {
 		StopCoroutine ("Change");
 	}
 
-    void SetCountText()
+    public void SetCountText()
     {
         Hitbox hitCheck = GetComponent<Hitbox>();
         score = Hitbox.count;
@@ -48,7 +48,7 @@ public class ModeController : MonoBehaviour {
         }
     }
 
-    void Spawn()
+    public void Spawn()
     {
         StartCoroutine(TimetoSpawn( spawnItem));
     }
